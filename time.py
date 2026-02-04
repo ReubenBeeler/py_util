@@ -13,7 +13,7 @@ _units_map = {
     's': 1e-9,
 }
 
-def time_it(units: str, func:Callable[...,_T], *args, **kwargs) -> tuple[_T, float]:
+def time_it(units: str, func:Callable[...,_T], *args, **kwargs) -> tuple[float, _T]:
     '''
 	Measure the time for a single function invocation of `func`. See the below example. <br>
     .. code-block:: python
@@ -27,8 +27,8 @@ def time_it(units: str, func:Callable[...,_T], *args, **kwargs) -> tuple[_T, flo
 	:type func: Callable[..., T]
 	:param args: The positional arguments for `func`
 	:param kwargs: The keyword arguments for `func`
-	:return: A two-element tuple containing first the return value and second the elapsed time of the function invocation
-	:rtype: tuple[T, float]
+	:return: A two-element tuple containing 1st the elapsed time and 2nd the return value of the function invocation
+	:rtype: tuple[float, T]
 	'''
     if not units in _units_map:
         raise ValueError(f"argument 'units' must be one of {[k for k in _units_map.keys()]} but had value {repr(units)}")
@@ -37,4 +37,4 @@ def time_it(units: str, func:Callable[...,_T], *args, **kwargs) -> tuple[_T, flo
     ret = func(*args, **kwargs)
     end = time.time_ns()
     duration = (end - start)*timescale
-    return (ret, duration)
+    return (duration, ret)
