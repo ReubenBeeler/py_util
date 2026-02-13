@@ -1,8 +1,6 @@
 from itertools import tee
 from typing import Protocol, TypeVar, Generic, Iterable, Iterator, Any
 
-from util.time import _T_co, _T_contra
-
 _T = TypeVar("_T")
 
 # # example use case:
