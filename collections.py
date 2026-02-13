@@ -1,5 +1,6 @@
 from itertools import tee
 from typing import Protocol, TypeVar, Generic, Iterable, Iterator, Any
+from warnings import deprecated
 
 _T = TypeVar("_T")
 
@@ -89,7 +90,7 @@ def buffer(it:Iterable[_T], buffer_length:int) -> list[list[_T]]:
     l = ((len(it)-1)//buffer_length) + 1
     return [it[i*buffer_length:(i+1)*buffer_length] for i in range(l)]
 
-class Optional:
+class Optional[_T]:
     def __init__(self, *args:_T):
         if len(args) > 1: raise AttributeError("only 0 or 1 arg allowed for Optional.__init__")
         self._present = (len(args) == 1)
